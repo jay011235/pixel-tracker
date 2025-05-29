@@ -2,6 +2,18 @@ import { google } from "googleapis";
 import fs from "fs";
 import path from "path";
 
+console.log("GOOGLE_SERVICE_JSON (first 100 chars):", process.env.GOOGLE_SERVICE_JSON?.slice(0, 100));
+
+try {
+  const decoded = Buffer.from(process.env.GOOGLE_SERVICE_JSON, "base64").toString("utf-8");
+  console.log("Decoded JSON preview:", decoded.slice(0, 100));
+  const serviceAccount = JSON.parse(decoded);
+  // continue with using `serviceAccount`
+} catch (err) {
+  console.error("Failed to decode or parse GOOGLE_SERVICE_JSON", err);
+  throw err;
+}
+
 // Decode base64 environment variable into JSON
 const serviceAccount = JSON.parse(
   Buffer.from(process.env.GOOGLE_SERVICE_JSON, "base64").toString("utf-8")
