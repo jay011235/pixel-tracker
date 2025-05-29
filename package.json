@@ -11,5 +11,7 @@
   "author": "Your Name",
   "license": "MIT",
   "type": "module",
-  "dependencies": {}
+  "dependencies": {
+    "googleapis": "^127.0.0"
+}
 }
