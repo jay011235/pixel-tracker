@@ -1,3 +1,12 @@
+export default function Dashboard() {
+  return (
+    <div style={{ padding: "2rem", fontFamily: "sans-serif" }}>
+      <h1>📈 Pixel Tracker Dashboard</h1>
+      <p>This page is working!</p>
+    </div>
+  );
+}
+
 import { google } from "googleapis";
 
 export async function getServerSideProps() {
