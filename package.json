@@ -1,5 +1,5 @@
 {
-  "name": "pixel-tracker-vercel",
+  "name": "pixel-tracker",
   "version": "1.0.0",
   "description": "Self-hosted email tracking pixel on Vercel using serverless functions",
   "main": "api/pixel.js",
