@@ -2,8 +2,10 @@ import { google } from "googleapis";
 import fs from "fs";
 import path from "path";
 
-// Load service account credentials
-const serviceAccount = JSON.parse(process.env.GOOGLE_SERVICE_JSON);
+// Decode base64 environment variable into JSON
+const serviceAccount = JSON.parse(
+  Buffer.from(process.env.GOOGLE_SERVICE_JSON, "base64").toString("utf-8")
+);
 
 // Google Sheets setup
 const auth = new google.auth.GoogleAuth({
