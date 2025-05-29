@@ -27,7 +27,7 @@ const auth = new google.auth.GoogleAuth({
 const sheets = google.sheets({ version: "v4", auth });
 
 // Your Google Sheet ID
-const SHEET_ID = "https://docs.google.com/spreadsheets/d/1V3_whFAiiUu-lGUeEGfx0pA0VFpG0_HFEVgpcB0occg/edit"; // from the URL
+const SHEET_ID = "1V3_whFAiiUu-lGUeEGfx0pA0VFpG0_HFEVgpcB0occg"; // from the URL
 
 export default async function handler(req, res) {
   const { email = "unknown", campaign = "none" } = req.query;
