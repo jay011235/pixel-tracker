@@ -33,18 +33,23 @@ export default async function handler(req, res) {
     const range = "Sheet1!A:D";
     const timestamp = new Date().toISOString();
 
+    // ✅ Extract User-Agent and IP
+    const userAgent = req.headers['user-agent'] || '';
+    const ip = req.headers['x-forwarded-for']?.split(',')[0] || req.socket.remoteAddress || 'unknown';
+
+
     await sheets.spreadsheets.values.append({
       spreadsheetId,
       range,
       valueInputOption: "USER_ENTERED",
       requestBody: {
-        values: [[timestamp, uid, campaign, "click"]],
+        values: [[timestamp, uid, campaign, ip, userAgent, "click"]],
       },
     });
   } catch (error) {
     console.error("Google Sheets logging failed:", error);
   }
 
-  res.writeHead(302, { Location: url });
+  res.writeHead(302, { Location: decodeURIComponent(url) });
   res.end();
 }
