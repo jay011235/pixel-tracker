@@ -54,14 +54,23 @@ export default async function handler(req, res) {
     } catch (e) {
       console.error('Geo lookup failed:', e);
     }
+
+      // 🧠 Parse User-Agent
+      const parser = new UAParser(userAgent);
+      const ua = parser.getResult();
     
+      const deviceType = ua.device.type || 'desktop';
+      const browser = ua.browser.name || '';
+      const browserVersion = ua.browser.version || '';
+      const os = ua.os.name || '';
+      const osVersion = ua.os.version || '';
 
     await sheets.spreadsheets.values.append({
       spreadsheetId,
       range,
       valueInputOption: "USER_ENTERED",
       requestBody: {
-        values: [[timestamp, uid, campaign, ip, userAgent, "click", location.city, location.region, location.country, location.org]],
+        values: [[timestamp, uid, campaign, "click", ip, location.city, location.region, location.country, location.org,deviceType, browser, os]],
       },
     });
   } catch (error) {
