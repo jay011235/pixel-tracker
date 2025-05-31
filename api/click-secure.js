@@ -2,14 +2,14 @@ import { google } from 'googleapis';
 import crypto from 'crypto';
 
 export default async function handler(req, res) {
-  const { email, campaign, url, h } = req.query;
+  const { uid, campaign, url, h } = req.query;
   const secret = process.env.HMAC_SECRET;
 
-  if (!email || !campaign || !url || !h) {
+  if (!uid || !campaign || !url || !h) {
     return res.status(400).send("Missing required parameters");
   }
 
-  const base = `email=${encodeURIComponent(email)}&campaign=${encodeURIComponent(campaign)}&url=${encodeURIComponent(url)}`;
+  const base = `uid=${encodeURIComponent(uid)}&campaign=${encodeURIComponent(campaign)}&url=${encodeURIComponent(url)}`;
   const hash = crypto.createHmac('sha256', secret).update(base).digest('hex');
 
   if (hash !== h) {
@@ -38,7 +38,7 @@ export default async function handler(req, res) {
       range,
       valueInputOption: "USER_ENTERED",
       requestBody: {
-        values: [[timestamp, email, campaign, "click"]],
+        values: [[timestamp, uid, campaign, "click"]],
       },
     });
   } catch (error) {
