@@ -25,6 +25,24 @@ export default async function handler(req, res) {
   const userAgent = req.headers['user-agent'] || '';
   const ip = req.headers['x-forwarded-for']?.split(',')[0] || req.socket.remoteAddress || 'unknown';
 
+  // Fetch geolocation from ip-api.com
+  let location = { city: '', country: '', region: '', org: '' };
+  try {
+    const geoRes = await fetch(`http://ip-api.com/json/${ip}`);
+    const geoData = await geoRes.json();
+    if (geoData.status === 'success') {
+      location = {
+        city: geoData.city || '',
+        region: geoData.regionName || '',
+        country: geoData.country || '',
+        org: geoData.org || ''
+      };
+    }
+  } catch (e) {
+    console.error('Geo lookup failed:', e);
+  }
+
+  
   // Log to Google Sheets
   try {
     await sheets.spreadsheets.values.append({
@@ -32,7 +50,7 @@ export default async function handler(req, res) {
       range: "Sheet1!A:C",
       valueInputOption: "RAW",
       requestBody: {
-        values: [[timestamp, uid, campaign, ip, userAgent]],
+        values: [[timestamp, uid, campaign, ip, userAgent, location.city, location.region, location.country, location.org]],
       },
     });
   } catch (err) {
