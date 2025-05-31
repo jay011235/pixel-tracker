@@ -12,6 +12,7 @@
   "license": "MIT",
   "type": "module",
   "dependencies": {
-    "googleapis": "^127.0.0"
+    "googleapis": "^127.0.0",
+     "ua-parser-js": "^1.0.35"
 }
 }
