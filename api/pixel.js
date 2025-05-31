@@ -21,6 +21,10 @@ export default async function handler(req, res) {
   const { uid = "unknown", campaign = "none" } = req.query;
   const timestamp = new Date().toISOString();
 
+  // ✅ Extract User-Agent and IP
+  const userAgent = req.headers['user-agent'] || '';
+  const ip = req.headers['x-forwarded-for']?.split(',')[0] || req.socket.remoteAddress || 'unknown';
+
   // Log to Google Sheets
   try {
     await sheets.spreadsheets.values.append({
@@ -28,7 +32,7 @@ export default async function handler(req, res) {
       range: "Sheet1!A:C",
       valueInputOption: "RAW",
       requestBody: {
-        values: [[timestamp, uid, campaign]],
+        values: [[timestamp, uid, campaign, ip, userAgent]],
       },
     });
   } catch (err) {
