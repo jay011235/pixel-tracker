@@ -18,7 +18,7 @@ const sheets = google.sheets({ version: "v4", auth });
 const SHEET_ID = "1V3_whFAiiUu-lGUeEGfx0pA0VFpG0_HFEVgpcB0occg"; // from the URL
 
 export default async function handler(req, res) {
-  const { email = "unknown", campaign = "none" } = req.query;
+  const { uid = "unknown", campaign = "none" } = req.query;
   const timestamp = new Date().toISOString();
 
   // Log to Google Sheets
@@ -28,7 +28,7 @@ export default async function handler(req, res) {
       range: "Sheet1!A:C",
       valueInputOption: "RAW",
       requestBody: {
-        values: [[timestamp, email, campaign]],
+        values: [[timestamp, uid, campaign]],
       },
     });
   } catch (err) {
@@ -36,7 +36,7 @@ export default async function handler(req, res) {
   }
 
   // from previous code, for logging data to Vercel also, not just Google Sheets
-    console.log(`[Tracking Pixel] ${new Date().toISOString()} | ${email} | ${campaign}`);
+    console.log(`[Tracking Pixel] ${new Date().toISOString()} | ${uid} | ${campaign}`);
 
   // Return transparent pixel
   const imagePath = path.resolve("./public/pixel.gif");
