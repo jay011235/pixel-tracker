@@ -17,6 +17,13 @@ export default async function handler(req, res) {
     return res.status(403).send("Invalid signature");
   }
 
+  // 🚀 Respond immediately so user isn't delayed
+  res.writeHead(302, { Location: decodeURIComponent(url) });
+  res.end();
+
+
+  // ✅ Async logging (won’t block user redirect)
+  setTimeout(async () => {
   try {
     const serviceAccount = JSON.parse(
       Buffer.from(process.env.GOOGLE_SERVICE_JSON, "base64").toString("utf-8")
@@ -66,6 +73,7 @@ export default async function handler(req, res) {
       const os = ua.os.name || '';
       const osVersion = ua.os.version || '';
 
+    // Log to Google Sheets
     await sheets.spreadsheets.values.append({
       spreadsheetId,
       range,
@@ -78,6 +86,5 @@ export default async function handler(req, res) {
     console.error("Google Sheets logging failed:", error);
   }
 
-  res.writeHead(302, { Location: decodeURIComponent(url) });
-  res.end();
+  }, 0);
 }
