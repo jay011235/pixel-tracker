@@ -46,6 +46,8 @@ export default async function handler(req, res) {
     const spreadsheetId = process.env.SHEET_ID;
     const timestamp = new Date().toISOString();
 
+       // Log to Google Sheets
+    
     await sheets.spreadsheets.values.append({
       spreadsheetId,
       range: "Sheet1!A:D",
