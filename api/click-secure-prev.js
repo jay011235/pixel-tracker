@@ -1,3 +1,8 @@
+//Previous version. No longer in use. Discontinued after adding link-click to log click 
+//on Google Sheets as a seperate function so that server doesn't time out the function
+//after redirecting to url page.
+//It was necessary to redirect to url page first before google sheet logging, because it was causing page loading delay
+
 import UAParser from 'ua-parser-js';
 import { google } from 'googleapis';
 import crypto from 'crypto';
