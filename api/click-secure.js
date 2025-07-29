@@ -1,5 +1,5 @@
 import crypto from 'crypto';
-import { google } from 'googleapis';
+//import { google } from 'googleapis';
 
 
 export default async function handler(req, res) {
@@ -23,6 +23,7 @@ export default async function handler(req, res) {
   */
 
   // for pinging to keep server warm, with logging
+ /*
   if (req.query.uid === 'ping') {
   console.log("Ping received – keeping function warm.");
     
@@ -51,12 +52,7 @@ export default async function handler(req, res) {
       },
     });
 
-      // to warm up log-click
-  fetch(`https://ivey-invest-jay011235s-projects.vercel.app/api/log-click`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ uid, campaign, ip, userAgent }),
-  }).catch(console.error);
+
 
     return res.status(200).send("Ping logged");
   } catch (error) {
@@ -64,7 +60,7 @@ export default async function handler(req, res) {
     return res.status(500).send("Ping error");
   }
 }
-  
+*/  
   
   if (!uid || !campaign || !url || !h) {
     return res.status(400).send("Missing required parameters");
