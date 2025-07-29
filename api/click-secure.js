@@ -1,4 +1,6 @@
 import crypto from 'crypto';
+import { google } from 'googleapis';
+
 
 export default async function handler(req, res) {
   const { uid, campaign, url, h } = req.query;
@@ -15,8 +17,6 @@ export default async function handler(req, res) {
   // for pinging to keep server warm, with logging
   if (req.query.uid === 'ping') {
   console.log("Ping received – keeping function warm.");
-
-    import { google } from 'googleapis';
     
   try {
     const serviceAccount = JSON.parse(
