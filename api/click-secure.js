@@ -16,6 +16,8 @@ export default async function handler(req, res) {
   if (req.query.uid === 'ping') {
   console.log("Ping received – keeping function warm.");
 
+    import { google } from 'googleapis';
+    
   try {
     const serviceAccount = JSON.parse(
       Buffer.from(process.env.GOOGLE_SERVICE_JSON, "base64").toString("utf-8")
