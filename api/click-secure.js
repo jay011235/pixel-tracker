@@ -10,6 +10,14 @@ export default async function handler(req, res) {
   /*
   if (req.query.uid === 'ping') {
     console.log("Ping received – keeping function warm.");
+
+      // to warm up log-click
+  fetch(`https://ivey-invest-jay011235s-projects.vercel.app/api/log-click`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ uid, campaign, ip, userAgent }),
+  }).catch(console.error);
+    
     return res.status(200).send("OK – warmed");
   }
   */
@@ -42,6 +50,13 @@ export default async function handler(req, res) {
         values: [[timestamp, 'ping', 'keepwarm', 'ping']],
       },
     });
+
+      // to warm up log-click
+  fetch(`https://ivey-invest-jay011235s-projects.vercel.app/api/log-click`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ uid, campaign, ip, userAgent }),
+  }).catch(console.error);
 
     return res.status(200).send("Ping logged");
   } catch (error) {
