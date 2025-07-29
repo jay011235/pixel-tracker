@@ -7,7 +7,7 @@ export default async function handler(req, res) {
   const secret = process.env.HMAC_SECRET;
 
   // for pinging to keep server warm, without logging
-  /*
+
   if (req.query.uid === 'ping') {
     console.log("Ping received – keeping function warm.");
 
@@ -20,7 +20,7 @@ export default async function handler(req, res) {
     
     return res.status(200).send("OK – warmed");
   }
-  */
+  
 
   // for pinging to keep server warm, with logging
  /*
