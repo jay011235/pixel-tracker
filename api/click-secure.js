@@ -4,6 +4,12 @@ export default async function handler(req, res) {
   const { uid, campaign, url, h } = req.query;
   const secret = process.env.HMAC_SECRET;
 
+  // for pinging to keep server warm
+  if (req.query.uid === 'ping') {
+    console.log("Ping received – keeping function warm.");
+    return res.status(200).send("OK – warmed");
+  }
+  
   if (!uid || !campaign || !url || !h) {
     return res.status(400).send("Missing required parameters");
   }
