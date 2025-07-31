@@ -5,7 +5,7 @@ export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).send('Method not allowed');
 
   try {
-    const { uid, campaign, ip, userAgent } = req.body;
+    const { uid, url, campaign, ip, userAgent } = req.body;
 
     const parser = new UAParser(userAgent);
     const ua = parser.getResult();
@@ -53,7 +53,7 @@ export default async function handler(req, res) {
       range: "Sheet1!A:D",
       valueInputOption: "USER_ENTERED",
       requestBody: {
-        values: [[timestamp, uid, campaign, "click", ip, location.city, location.region, location.country, location.org, deviceType, browser, os]],
+        values: [[timestamp, uid, campaign, url, ip, location.city, location.region, location.country, location.org, deviceType, browser, os]],
       },
     });
 
